@@ -8,14 +8,17 @@
 
 body {
   font-family: "Poppins", sans-serif;
+  display: flex;
+  justify-content: center;
+  height: 100vh;
 }
 
 .container {
-  max-width: 600px;
+  max-width: 500px;
   margin: 30px 10px;
   overflow: auto;
   min-height: 300px;
   border: 1px solid steelblue;
-  padding: 30px;
+  padding: 1rem;
   border-radius: 5px;
 }
