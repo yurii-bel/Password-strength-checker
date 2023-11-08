@@ -27,12 +27,19 @@ export class PasswordStrengthComponent {
 
     if (password.length === 0) {
       return;
-    } else if (password.includes(' ')) {
+    }
+
+    if (password.includes(' ')) {
       this.isLowLength = true;
       return; // Prevent spaces
-    } else if (password.length < 8) {
+    }
+
+    if (password.length < 8) {
       this.isLowLength = true;
-    } else if (
+      return;
+    }
+
+    if (
       /[a-zA-Z]/.test(password) &&
       /[0-9]/.test(password) &&
       /[!@#$%^&*]/.test(password)
