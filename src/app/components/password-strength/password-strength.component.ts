@@ -1,62 +1,32 @@
 import { Component } from '@angular/core';
+import {
+  PasswordService,
+  PasswordStrength,
+} from 'src/app/services/password.service';
 
 @Component({
   selector: 'app-password-strength',
   templateUrl: './password-strength.component.html',
   styleUrls: ['./password-strength.component.css'],
+  providers: [PasswordService],
 })
 export class PasswordStrengthComponent {
   password: string = '';
-  isEasy: boolean = false;
-  isMedium: boolean = false;
-  isStrong: boolean = false;
-  isLowLength: boolean = false;
+  strength: PasswordStrength = {
+    isEasy: false,
+    isMedium: false,
+    isStrong: false,
+    isLowLength: false,
+  };
   showPassword: boolean = false;
+
+  constructor(private passwordService: PasswordService) {}
+
+  onPasswordChange(password: string) {
+    this.strength = this.passwordService.checkPasswordStrength(password);
+  }
 
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
-  }
-
-  onPasswordChange() {
-    const password = this.password;
-
-    this.isEasy = false;
-    this.isMedium = false;
-    this.isStrong = false;
-    this.isLowLength = false;
-
-    if (password.length === 0) {
-      return;
-    }
-
-    if (password.includes(' ')) {
-      this.isLowLength = true;
-      return; // Prevent spaces
-    }
-
-    if (password.length < 8) {
-      this.isLowLength = true;
-      return;
-    }
-
-    if (
-      /[a-zA-Z]/.test(password) &&
-      /[0-9]/.test(password) &&
-      /[!@#$%^&*]/.test(password)
-    ) {
-      this.isStrong = true;
-    } else if (
-      (/[a-zA-Z]/.test(password) && /[0-9]/.test(password)) ||
-      (/[a-zA-Z]/.test(password) && /[!@#$%^&*]/.test(password)) ||
-      (/[0-9]/.test(password) && /[!@#$%^&*]/.test(password))
-    ) {
-      this.isMedium = true;
-    } else if (
-      /[a-zA-Z]/.test(password) ||
-      /[0-9]/.test(password) ||
-      /[!@#$%^&*]/.test(password)
-    ) {
-      this.isEasy = true;
-    }
   }
 }
