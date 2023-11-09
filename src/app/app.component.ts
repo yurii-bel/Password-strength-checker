@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+// app.component.ts
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -7,5 +7,9 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  title = 'password-strength-checker';
+  password: string = '';
+
+  onPasswordChange(password: string) {
+    this.password = password;
+  }
 }
